@@ -1,17 +1,25 @@
-
 module REPLCommand where
 
-import Text.Parsec.String (Parser)
-import Text.Parsec.Language (emptyDef, LanguageDef)
-import qualified Text.Parsec.Token as Token
-import Text.Parsec (anyChar)
-import Control.Applicative (many)
+import Lab2
+import Control.Applicative (many, (<|>))
 
 data REPLCommand
   = Quit
   | Load String
   | Eval String
 
-replCommand :: Parser REPLCommand
-replCommand = undefined
+quit :: Parser REPLCommand
+quit = (symbol ":quit" <|> symbol ":q") *> pure Quit
 
+load :: Parser REPLCommand
+load
+  = do
+    symbol ":load" <|> symbol ":l"
+    f <- many anychar
+    return $ Load f
+
+eval :: Parser REPLCommand
+eval = Eval <$> many anychar
+
+replCommand :: Parser REPLCommand
+replCommand = quit <|> load <|> eval
