@@ -1,0 +1,37 @@
+module Prelude where
+import MyPrelude
+import BoolClass
+import EitherClass
+import ListClass
+import MaybeClass
+import NatClass
+import PairClass
+
+
+one :: NatClass n => n
+one = succ zero
+
+isZero :: NatClass n => n -> CBool
+isZero n = iter (const false) true n
+
+add :: NatClass n => n -> n -> n
+add n m = iter succ n m
+
+
+mul :: NatClass n => n -> n -> n
+mul n m = iter (add n) zero m
+
+exp :: NatClass n => n -> n -> n
+exp n m = iter (mul n) one m
+
+pred :: NatClass n => n -> CMaybe n
+pred n = maybe nothing just (sub n one)
+
+sub :: NatClass n => n -> n -> CMaybe n
+sub n m = if lt n m then nothing else just (iter pred n m)
+
+lt :: NatClass n => n -> n -> CBool
+lt n m = isZero (sub n m)
+
+gt :: NatClass n => n -> n -> CBool
+gt n m = lt m n

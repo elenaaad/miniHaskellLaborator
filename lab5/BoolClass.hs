@@ -71,7 +71,21 @@ instance Show CBool where
 -- CFalse
 
 -- >>> true || false :: CBool
--- CTrue
+-- (Error while loading modules for evaluation)
+-- <BLANKLINE>
+-- src\Lab2.hs:1:1: error:
+--     File name does not match module name:
+--     Saw: `Main'
+--     Expected: `Lab2'
+-- Failed, no modules loaded.
+--
 
 -- >>> not true :: CBool
--- CFalse
+-- (Error while loading modules for evaluation)
+-- <BLANKLINE>
+-- src\Lab2.hs:1:1: error:
+--     File name does not match module name:
+--     Saw: `Main'
+--     Expected: `Lab2'
+-- Failed, no modules loaded.
+--
